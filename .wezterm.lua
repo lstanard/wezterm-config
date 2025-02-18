@@ -27,6 +27,11 @@ config.window_padding = {
 }
 config.leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 }
 config.color_scheme = 'catppuccin-mocha'
+config.font = wezterm.font_with_fallback {
+  { family = 'JetBrains Mono', weight = 'Regular' },
+  'Hack Nerd Font',
+}
+config.font_size = 13
 
 -- Tab bar
 config.enable_tab_bar = true
