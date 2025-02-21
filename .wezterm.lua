@@ -23,6 +23,7 @@ config.keys = {
 -- UI config
 config.color_scheme = 'catppuccin-frappe' -- also trying out catppuccin-mocha for a change
 config.enable_tab_bar = true
+config.font_size = 13
 config.initial_cols = 180
 config.initial_rows = 60
 config.use_fancy_tab_bar = true
