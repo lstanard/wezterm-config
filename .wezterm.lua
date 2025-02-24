@@ -20,6 +20,8 @@ config.keys = {
 	}
 }
 
+config.send_composed_key_when_left_alt_is_pressed = true
+
 -- UI config
 config.color_scheme = 'catppuccin-frappe' -- also trying out catppuccin-mocha for a change
 config.enable_tab_bar = true
