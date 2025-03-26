@@ -2,6 +2,14 @@
 local wezterm = require 'wezterm'
 local act = wezterm.action
 
+-- Plugins
+local bar = wezterm.plugin.require("https://github.com/adriankarlen/bar.wezterm")
+local pain_control = wezterm.plugin.require("https://github.com/sei40kr/wez-pain-control")
+
+-- Set up config
+local config = wezterm.config_builder()
+
+config.leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 }
 -- Custom 3-pane layout
 wezterm.on('spawn-three-pane-layout', function(window, _)
   local tab = window:mux_window():spawn_tab {}  -- Open a new tab
@@ -13,14 +21,29 @@ wezterm.on('spawn-three-pane-layout', function(window, _)
   local bottom_right = top_right:split { direction = 'Bottom', size = 0.5 }
 end)
 
--- Plugins
-local bar = wezterm.plugin.require("https://github.com/adriankarlen/bar.wezterm")
-local pain_control = wezterm.plugin.require("https://github.com/sei40kr/wez-pain-control")
+-- Customize tab title
+wezterm.on("format-tab-title", function(tab)
+  local pane = tab.active_pane
+  local process_name = wezterm.basename(pane.foreground_process_name) -- e.g., 'nvim'
+  local cwd_uri = pane.current_working_dir
 
--- Config
-local config = wezterm.config_builder()
+  -- Extract the last folder name from the CWD
+  local cwd = ""
+  if cwd_uri then
+    local cwd_path = cwd_uri:match("file://[^/]*/(.*)") -- Extract path after file://
+    if cwd_path then
+      cwd = cwd_path:match(".*/(.*)") or cwd_path -- Get the last folder
+    end
+  end
 
-config.leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 }
+  -- Truncate the folder name if too long
+  if #cwd > 10 then
+    cwd = cwd:sub(1, 8) .. "…"
+  end
+
+  -- Format: "1 -> ni (repo-name)"
+  return string.format("%d → %s (%s)", tab.tab_index + 1, process_name, cwd)
+end)
 
 -- Keys
 config.keys = {
@@ -28,10 +51,7 @@ config.keys = {
     key = 'K',
     mods = 'CTRL|SHIFT',
     action = act.ClearScrollback 'ScrollbackAndViewport',
-  }
-}
-
-config.keys = {
+  },
   {
     key = 'L',
     mods = 'CTRL|SHIFT',
