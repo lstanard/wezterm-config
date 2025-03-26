@@ -13,17 +13,17 @@ config.leader = { key = 'a', mods = 'CTRL', timeout_milliseconds = 1000 }
 
 -- Keys
 config.keys = {
-	{
-		key = 'K',
-		mods = 'CTRL|SHIFT',
-		action = act.ClearScrollback 'ScrollbackAndViewport',
-	}
+  {
+    key = 'K',
+    mods = 'CTRL|SHIFT',
+    action = act.ClearScrollback 'ScrollbackAndViewport',
+  }
 }
 
 config.send_composed_key_when_left_alt_is_pressed = true
 
 -- UI config
-config.color_scheme = 'catppuccin-frappe' -- also trying out catppuccin-mocha for a change
+config.color_scheme = 'catppuccin-mocha'
 config.enable_tab_bar = true
 config.font_size = 13
 config.initial_cols = 180
@@ -31,10 +31,10 @@ config.initial_rows = 60
 config.use_fancy_tab_bar = true
 config.window_decorations = "RESIZE"
 config.window_padding = {
-	left = '12px',
-	right = '12px',
-	top = '18px',
-	bottom = '12px',
+  left = '12px',
+  right = '12px',
+  top = '14px',
+  bottom = '12px',
 }
 
 -- Apply plugin config
