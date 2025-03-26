@@ -5,16 +5,14 @@ local act = wezterm.action
 -- Custom 3-pane layout
 wezterm.on('spawn-three-pane-layout', function(window, _)
   local tab = window:mux_window():spawn_tab {}  -- Open a new tab
-
   -- Create the left panel (1)
   local left = tab:active_pane()
-
   -- Create the right side panel (2) by splitting from left
   local top_right = left:split { direction = 'Right', size = 0.33 }
-
   -- Create the bottom-right panel (3) by splitting top-right
   local bottom_right = top_right:split { direction = 'Bottom', size = 0.5 }
 end)
+
 -- Plugins
 local bar = wezterm.plugin.require("https://github.com/adriankarlen/bar.wezterm")
 local pain_control = wezterm.plugin.require("https://github.com/sei40kr/wez-pain-control")
